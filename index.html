@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ограбление века</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</head>
+<body>
+
+</body>
+
+<script>
+    const title_suspects = 'Підозрювані'
+    const suspects = [
+      {img: '', name: 'Місіс Скайд', state: false},
+      {img: '', name: 'Місіс Ріплі', state: false},
+      {img: '', name: 'Місіс Роуз', state: false},
+      {img: '', name: 'Професор Уокер', state: false},
+      {img: '', name: 'Превеледний Чемберлейн', state: false},
+      {img: '', name: 'Сержант Лейбл', state: false},
+    ];
+
+    const title_proofs = 'Докази';
+    const proofs = ['Шпілька', 'Вікрутка', 'Лом', 'Відмичка', 'Дріль', 'Ліхтарік'];
+
+    const title_rooms = 'Кімнати';
+    const rooms = ['Кабинет', 'Тераса', 'Вітальння', 'Столова', 'Бальний зал', 'Предпокій', 'Кухня', 'Бібліотека', 'Спальня'];
+
+    function renderBlock(title, data) {
+      const html_body = data.reduce((data, item) => {
+        data += `<label><span>${item?.name ?? item}</span><input type="checkbox"/></label>`;
+        return data;
+      }, '');
+
+      return `
+        <section>
+            <h2 class="suspects">${title}</h2>
+            ${html_body}
+        </section>
+      `;
+    }
+
+    document.body.innerHTML = renderBlock(title_suspects, suspects);
+    document.body.innerHTML += renderBlock(title_proofs, proofs);
+    document.body.innerHTML += renderBlock(title_rooms, rooms);
+</script>
+
+<style>
+    * {
+        user-select: none;
+    }
+
+    body {
+        margin: 0 auto;
+        max-width: 80%;
+    }
+
+    section {
+        margin-bottom: 20px;
+    }
+
+    input {
+        margin-right: 12px;
+        height: 16px;
+        width: 16px;
+    }
+
+    span {
+        flex: 1
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        height: 24px;
+    }
+</style>
+
+</html>
