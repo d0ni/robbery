@@ -13,42 +13,55 @@
 <script>
     const title_suspects = 'Підозрювані'
     const suspects = [
-      {img: '', name: 'Місіс Скайд', state: false},
-      {img: '', name: 'Місіс Ріплі', state: false},
-      {img: '', name: 'Місіс Роуз', state: false},
-      {img: '', name: 'Професор Уокер', state: false},
-      {img: '', name: 'Превеледний Чемберлейн', state: false},
-      {img: '', name: 'Сержант Лейбл', state: false},
+      {color:"yellow", img: '', name: 'Місіс Скайд', state: false},
+      {color:"#00e8ff", img: '', name: 'Місіс Ріплі', state: false},
+      {color:"green", img: '', name: 'Місіс Роуз', state: false},
+      {color:"red", img: '', name: 'Професор Уокер', state: false},
+      {color:"blue", img: '', name: 'Превелебний Чемберлен', state: false},
+      {color:"black", img: '', name: 'Сержант Лейбл', state: false},
     ];
 
     const title_proofs = 'Докази';
     const proofs = ['Шпілька', 'Вікрутка', 'Лом', 'Відмичка', 'Дріль', 'Ліхтарік'];
 
     const title_rooms = 'Кімнати';
-    const rooms = ['Кабинет', 'Тераса', 'Вітальння', 'Столова', 'Бальний зал', 'Предпокій', 'Кухня', 'Бібліотека', 'Спальня'];
+    const rooms = ['Кабінет', 'Тераса', 'Вітальння', 'Столова', 'Бальний зал', 'Предпокій', 'Кухня', 'Бібліотека', 'Спальня'];
 
-    function renderBlock(title, data) {
+    function renderBlock(title, data, key) {
       const html_body = data.reduce((data, item) => {
-        data += `<label><span>${item?.name ?? item}</span><input type="checkbox"/></label>`;
+        data += `<label class="${key}">
+            <div class="square" style="${item.color ? `background: ${item.color};` : ''}"></div>
+            <span>${item?.name ?? item}</span>
+            <input type="checkbox"/>
+        </label>`;
         return data;
       }, '');
 
       return `
         <section>
-            <h2 class="suspects">${title}</h2>
+            <h2>${title}</h2>
             ${html_body}
         </section>
       `;
     }
 
-    document.body.innerHTML = renderBlock(title_suspects, suspects);
-    document.body.innerHTML += renderBlock(title_proofs, proofs);
-    document.body.innerHTML += renderBlock(title_rooms, rooms);
+    document.body.innerHTML = renderBlock(title_suspects, suspects, 'suspects');
+    document.body.innerHTML += renderBlock(title_proofs, proofs, 'proofs');
+    document.body.innerHTML += renderBlock(title_rooms, rooms, 'rooms');
+
 </script>
 
 <style>
     * {
         user-select: none;
+    }
+
+    article[data-type='suspects'] {
+        background: red;
+    }
+
+    h2 {
+        margin-bottom: 8px;
     }
 
     body {
@@ -74,6 +87,13 @@
         display: flex;
         align-items: center;
         height: 24px;
+    }
+
+    .square {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        margin-right: 10px;
     }
 </style>
 
